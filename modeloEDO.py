@@ -55,10 +55,10 @@ def dinamicaIntracelular(x, y):
     s       = 1.3*10**5
     beta    = 5*10**-8
     d       = 0.01
-    delta   = 0.8
+    delta   = 0.047
     epsilon = 0.996
-    p       = 50
-    c       = 15.3
+    p       = 6
+    c       = 20.3
 
     
     ## inicializa com zeros
@@ -77,16 +77,17 @@ h = 0.01
 # Dias simulados
 x = np.array([0.0, 2.0])
 
+xZika = np.array([7.0, 30.0])
 # condicoes iniciais
 T0  = 2.9168*10**6
 I0 = 8.7186*10**5
-V0  = 1.9139*10**7
+V0  = 1.4436*10**4
 
 yinit = np.array([T0,I0,V0], dtype='f')
 
 # Chama o método de runge-kutta definido com a função e as condições iniciais
 
-[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, x, h)
+[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, xZika, h)
 
 # Separa cada variável em um vetor
 
@@ -103,7 +104,7 @@ plt.figure()
 #plt.plot(ts, ys2, 'b')
 plt.plot(ts, ys3, 'g')
 #plt.legend(["Target", "Infectada", "Virus"])
-plt.xlim(x[0], x[1])
+plt.xlim(0.0, xZika[1])
 plt.xlabel("Dias", fontsize=17)
 plt.ylabel("HCV RNA (log)", fontsize=17)
 
@@ -131,6 +132,33 @@ PAT69 = [6.14, 5.87, 4.73, 4.17, 3.55, 3.14, 2.87, 2.60, 2.55, 2.58];
 PAT83 = [5.45, 5.38, 4.73, 4.00, 3.39, 2.89, 2.68, 2.72, 2.97, 1.93];
 #PAT83_exp = [5.45 5.38 4.73 4.00 3.39 2.89 2.68 2.72 2.97 1.93 2.01 1.54];
 
-plt.plot(t, PAT68, 'ro')
-#plt.savefig('pat83.png',format= 'png')
+# Zika Virus Pat
+
+# Tempo Zika Virus
+
+tZika = [7, 10, 20, 30]
+tZikaEst = [7, 10, 20, 30, 60, 90, 120]
+
+#Pat1
+PAT1 = [3.241529, 2.555326, 2.547130, 2.541043]
+PAT1Est = [3.1859428, 3.749728, 5.018263, 5.537607, 5.545723, 5.020084, 3.860592]
+
+#Pat2
+PAT2 = [3.522593, 2.920457, 2.547203, 2.615682]
+PAT2Est = [4.485811, 5.291782, 3.531515, 3.176610, 5.503406, 3.164055]
+
+#Pat3
+PAT3 = [3.555587, 3.316164, 2.595167, 2.543369]
+
+#Pat4
+PAT4 = [4.175440, 2.992317, 2.744784, 2.543393]
+
+plt.suptitle('PAT4-Zika')
+
+plt.plot(tZika, PAT4, 'ro')
+plt.savefig('pat4.png',format= 'png')
 plt.show()
+
+
+
+
