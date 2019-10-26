@@ -1,0 +1,66 @@
+2011- PI sugiu como um tratamento eficiente contra a hepatite C. A primeira geração tinha efeitos colaterias. A segunda geração trouxe DAA(agentes antivirais de ação direta) 
+
+Standard biphasic model:
+    epsilon: efetividade do tratamento
+    p: virão é gerado na celula infectada
+    bifásico: em um primeiro momento, temos uma fase rápida e curta de crescimento de vírus seguida por uma fase longa e de decaimento lento do número de vírus.
+    Não representa as interações intracelulares e os efeitos dos diferentes tipos de DAA
+
+Multiscale model:
+    Extendendo o modelo para a dinâmica intracelular do vRNA 
+    R: fita de RNA viral positiva
+    R varia de acordo com a produção(alpha), montagem/secreção(rho), degradação(mi)
+    a(estrutura etária) : representa o tempo que passou desde que o vírus entrou na célula
+    Age é independente do tempo, mas será sempre menor que o mesmo. Age representa o tempo dentro da célula. Tempo representa o tempo fora da célula, ou seja, na interação com outras células.
+    Tratamento:
+        Inclui no modelo multiscale o tratamento. Nesse caso, o tratamento possui três efeitos distintos.
+        (1 - epsilon_alpha): redução na produção de vRNA ::: 0 <= epsilon_alpha <=1
+        (1 - epsilon_s): redução de montagem de vRNA ::: 0 <= epsilon_s <= 1
+        k: aprimoramento da degradação de vRNA ::: k >= 1
+
+Análise usando standard biphasic model
+    V0: último valor medido antes do decaimento da carga viral
+    t0: média entre a última medição antes de começar o tratamento e a primeira após começar o tratamento
+    c, epsilon, delta: regressão usando Levenberg-Marquardt algorithm
+    epsilon = 0.996    
+
+    Declínio bifásico: Na primeira fase temos clearence viral(c); na segunda fase temos a morte das celulas infectadas
+    c = 10.35; delta = 0.42
+
+    
+Análise do multiscale model
+    t0 não precisa ser no momento da infecção. Pode ser, por exemplo, o início da observação do paciente infectado. Se o paciente
+não tiver sido infectado a muito tempo, o steady state pode não ser alcançado. Uma análise completa é necessária para saber se a
+solução do sistema vai convergir para o steady state.
+    Omega(a): probabilidade de uma célula infectada sobreviver após a dias de infecção
+    Pi(a): probabilidade de um vRNA intracelular sobreviver após a dias de infecção
+    
+Soluções de aproximação do multiscale model
+    delta, rho, mu, alpha assumidos como constantes
+    R(a,t) e I(a,t) possuem uma forma analítica
+    V(t) não tem uma forma analítica, por isso, é necessário utilizar aproximações do curto e longo prazo
+    
+    Short-term approximation:
+        Após o início do tratamento, assumimos que células infectadas mantém sua steady-state por um curto prazo, i.e., 
+    I(a,t); a<t = I(a,t); a>t
+
+    Long-term approximation:
+        Supomos que não existem novas infecções após o tratamento começar, i.e., I(a,t) = 0; a<t. Razoável, se o tratamento
+    for potente o suficiente. Porém isso não é tão realístico, por isso, foi necessário incluir um termo exponencial de gamma,
+    para representar o decaimento dos complexos de replicação (templates), e assim a equação R(a,t) é alterada.
+    
+    Duração das fases de declínio viral:
+        A presença de três termos exponenciais na equação V(t) para long-term, indica que encontraremos 3 fases distintas no 
+    gráfico da carga viral ao longo do tempo. 
+        Clearence (c): remoção do vRNA da circulação. Influenciado pelo epsilon_s.
+        (1 - epsilon_s)rho + kappa*mu + delta: perda de vRNA pela exportação e degradação, assim como a morte de I. Influenciado
+    pelo episolon_alpha.
+        gamma + delta: redução de vRNA pela perda dos templates de replicação nas células infectadas, assim como a morte de I
+    
+
+
+
+            
+
+
+
