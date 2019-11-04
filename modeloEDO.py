@@ -55,11 +55,37 @@ def dinamicaIntracelular(x, y):
     s       = 1.3*10**5
     beta    = 5*10**-8
     d       = 0.01
-    delta   = 0.047
+    
+    #Pat8
+    delta   = 1.0
     epsilon = 0.996
+    p       = 5
+    c       = 22.3
+    
+    '''#Pat42
+    delta   = 0.5
+    epsilon = 0.996
+    p       = 5
+    c       = 22.3    
+    '''
+    '''#Pat68
+    delta   = 0.8
+    epsilon = 0.996
+    p       = 50
+    c       = 15.2    
+    '''
+    '''#Pat69
+    delta   = 0.55
+    epsilon = 0.996
+    p       = 5
+    c       = 20.3    
+    '''
+    '''#Pat83
+    delta   = 0.6
+    epsilon = 0.998
     p       = 6
-    c       = 20.3
-
+    c       = 16.0    
+    '''
     
     ## inicializa com zeros
     dy = np.zeros(3)
@@ -81,13 +107,28 @@ xZika = np.array([7.0, 30.0])
 # condicoes iniciais
 T0  = 2.9168*10**6
 I0 = 8.7186*10**5
-V0  = 1.4436*10**4
+
+#PAT8:
+V0  = 6.9139*10**5
+
+#PAT42:
+# V0  = 6.9139*10**5
+ 
+#PAT68:
+# V0  = 1.9139*10**7
+
+#PAT69:
+# V0  = 1.9139*10**6
+
+#PAT83:
+# V0  = 4.9139*10**5
+
 
 yinit = np.array([T0,I0,V0], dtype='f')
 
 # Chama o método de runge-kutta definido com a função e as condições iniciais
 
-[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, xZika, h)
+[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, x, h)
 
 # Separa cada variável em um vetor
 
@@ -100,11 +141,9 @@ ys3 = np.log10(ys3)
 
 plt.figure()
 
-#plt.plot(ts, ys1, 'r')
-#plt.plot(ts, ys2, 'b')
 plt.plot(ts, ys3, 'g')
-#plt.legend(["Target", "Infectada", "Virus"])
-plt.xlim(0.0, xZika[1])
+
+plt.xlim(0.0, x[1])
 plt.xlabel("Dias", fontsize=17)
 plt.ylabel("HCV RNA (log)", fontsize=17)
 
@@ -141,11 +180,9 @@ tZikaEst = [7, 10, 20, 30, 60, 90, 120]
 
 #Pat1
 PAT1 = [3.241529, 2.555326, 2.547130, 2.541043]
-PAT1Est = [3.1859428, 3.749728, 5.018263, 5.537607, 5.545723, 5.020084, 3.860592]
 
 #Pat2
 PAT2 = [3.522593, 2.920457, 2.547203, 2.615682]
-PAT2Est = [4.485811, 5.291782, 3.531515, 3.176610, 5.503406, 3.164055]
 
 #Pat3
 PAT3 = [3.555587, 3.316164, 2.595167, 2.543369]
@@ -153,10 +190,10 @@ PAT3 = [3.555587, 3.316164, 2.595167, 2.543369]
 #Pat4
 PAT4 = [4.175440, 2.992317, 2.744784, 2.543393]
 
-plt.suptitle('PAT4-Zika')
+plt.suptitle('PAT8')
 
-plt.plot(tZika, PAT4, 'ro')
-plt.savefig('pat4.png',format= 'png')
+plt.plot(t, PAT8, 'ro')
+#plt.savefig('pat42.png',format= 'png')
 plt.show()
 
 
