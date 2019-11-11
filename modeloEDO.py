@@ -58,32 +58,32 @@ def dinamicaIntracelular(x, y):
     
     '''
     #Pat1
-    delta   = 0.002
-    epsilon = 0.9975
-    p       = 5
-    c       = 30.3
+    delta   = 0.0039
+    epsilon = 0.99
+    p       = 0.18
+    c       = 4.3
     '''
     '''
     #Pat2
-    delta   = 0.038
-    epsilon = 0.996
-    p       = 7
-    c       = 30.3
-    '''
-    '''
-    #Pat3
-    delta   = 0.1
-    epsilon = 0.994
-    p       = 10
-    c       = 20.3
+    delta   = 0.005
+    epsilon = 0.9969
+    p       = 0.1
+    c       = 0.7
     '''
     
+    #Pat3
+    delta   = 0.0002
+    epsilon = 0.9883
+    p       = 0.01
+    c       = 0.305
+    
+    '''
     #Pat4
     delta   = 0.05
-    epsilon = 0.9975
-    p       = 9
-    c       = 19.0
-    
+    epsilon = 0.99
+    p       = 0.18
+    c       = 2.0
+    '''
     '''
     #Pat8
     delta   = 1.0
@@ -141,16 +141,16 @@ I0 = 8.7186*10**5
 
 
 #PAT1:
-#V0   = 8*10**3
+#V0   = 1.8*10**3
 
 #PAT2:
-#V0   = 8*10**3
+#V0   = 3.6*10**3
 
 #PAT3:
-#V0   = 4.5*10**3
+V0   = 3.65*10**3
 
 #PAT4:
-V0   = 3*10**4
+#V0   = 3*10**4
 
 #PAT8:
 #V0  = 6.9139*10**5
@@ -234,10 +234,10 @@ PAT3 = [3.555587, 3.316164, 2.595167, 2.543369]
 #Pat4
 PAT4 = [4.175440, 2.992317, 2.744784, 2.543393]
 
-plt.suptitle('PAT4')
+plt.suptitle('PAT3')
 
-plt.plot(tZika, PAT4, 'ro')
-#plt.savefig('pat4.png',format= 'png')
+plt.plot(tZika, PAT3, 'ro')
+plt.savefig('pat3.png',format= 'png')
 plt.show()
 
 
