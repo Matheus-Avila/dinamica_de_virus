@@ -152,6 +152,8 @@ V0   = 3.65*10**3
 #PAT4:
 #V0   = 3*10**4
 
+#--------------------HCV----------------
+
 #PAT8:
 #V0  = 6.9139*10**5
 
@@ -237,7 +239,7 @@ PAT4 = [4.175440, 2.992317, 2.744784, 2.543393]
 plt.suptitle('PAT3')
 
 plt.plot(tZika, PAT3, 'ro')
-plt.savefig('pat3.png',format= 'png')
+#plt.savefig('pat3.png',format= 'png')
 plt.show()
 
 
