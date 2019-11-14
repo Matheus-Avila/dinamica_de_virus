@@ -56,13 +56,13 @@ def dinamicaIntracelular(x, y):
     beta    = 5*10**-8
     d       = 0.01
     
-    '''
+    
     #Pat1
     delta   = 0.0039
     epsilon = 0.99
     p       = 0.18
     c       = 4.3
-    '''
+    
     '''
     #Pat2
     delta   = 0.005
@@ -70,17 +70,17 @@ def dinamicaIntracelular(x, y):
     p       = 0.1
     c       = 0.7
     '''
-    
+    '''
     #Pat3
     delta   = 0.0002
     epsilon = 0.9883
     p       = 0.01
     c       = 0.305
-    
+    '''
     '''
     #Pat4
     delta   = 0.05
-    epsilon = 0.99
+    epsilon = 0.987
     p       = 0.18
     c       = 2.0
     '''
@@ -98,19 +98,22 @@ def dinamicaIntracelular(x, y):
     p       = 5
     c       = 22.3    
     '''
-    '''#Pat68
+    '''
+    #Pat68
     delta   = 0.8
     epsilon = 0.996
     p       = 50
     c       = 15.2    
     '''
-    '''#Pat69
+    '''
+    #Pat69
     delta   = 0.55
     epsilon = 0.996
     p       = 5
     c       = 20.3    
     '''
-    '''#Pat83
+    '''
+    #Pat83
     delta   = 0.6
     epsilon = 0.998
     p       = 6
@@ -140,17 +143,19 @@ T0  = 2.9168*10**6
 I0 = 8.7186*10**5
 
 
+#------------------Zika-----------------
+
 #PAT1:
-#V0   = 1.8*10**3
+V0   = 1.8*10**3
 
 #PAT2:
 #V0   = 3.6*10**3
 
 #PAT3:
-V0   = 3.65*10**3
+#V0   = 3.65*10**3
 
 #PAT4:
-#V0   = 3*10**4
+#V0   = 2*10**4
 
 #--------------------HCV----------------
 
@@ -158,23 +163,27 @@ V0   = 3.65*10**3
 #V0  = 6.9139*10**5
 
 #PAT42:
-# V0  = 6.9139*10**5
+#V0  = 6.9139*10**5
  
 #PAT68:
-# V0  = 1.9139*10**7
+#V0  = 1.9139*10**7
 
 #PAT69:
-# V0  = 1.9139*10**6
+#V0  = 1.9139*10**6
 
 #PAT83:
-# V0  = 4.9139*10**5
+#V0  = 4.9139*10**5
 
 
 yinit = np.array([T0,I0,V0], dtype='f')
 
 # Chama o método de runge-kutta definido com a função e as condições iniciais
 
+#Para pacientes com Zika
 [ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, xZika, h)
+
+#Para pacientes com HCV
+#[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, x, h)
 
 # Separa cada variável em um vetor
 
@@ -189,9 +198,14 @@ plt.figure()
 
 plt.plot(ts, ys3, 'g')
 
+#Para pacientes com Zika
 plt.xlim(xZika[0], xZika[1])
+
+#Para pacientes com HCV
+#plt.xlim(x[0], x[1])
+
 plt.xlabel("Dias", fontsize=17)
-plt.ylabel("HCV RNA (log)", fontsize=17)
+plt.ylabel("log VL (RNA cp/mL)", fontsize=17)
 
 # Tempo Experimentos
 t = [0, 0.083, 0.167, 0.25, 0.333, 0.5, 0.667, 1, 1.5, 2 ]
@@ -236,10 +250,16 @@ PAT3 = [3.555587, 3.316164, 2.595167, 2.543369]
 #Pat4
 PAT4 = [4.175440, 2.992317, 2.744784, 2.543393]
 
-plt.suptitle('PAT3')
+plt.suptitle('PAT1')
 
-plt.plot(tZika, PAT3, 'ro')
-#plt.savefig('pat3.png',format= 'png')
+#Para pacientes com Zika
+plt.plot(tZika, PAT1, 'ro')
+
+#Para pacientes com HCV
+#plt.plot(t, PAT8, 'ro')
+
+#Salvar imagem como arquivo
+#plt.savefig('pat1.png',format= 'png')
 plt.show()
 
 
