@@ -58,10 +58,10 @@ def dinamicaIntracelular(x, y):
     
     
     #Pat1
-    delta   = 0.0039
+    delta   = 0.0011
     epsilon = 0.99
-    p       = 0.18
-    c       = 4.3
+    p       = 0.06
+    c       = 1.5
     
     '''
     #Pat2
@@ -101,9 +101,9 @@ def dinamicaIntracelular(x, y):
     '''
     #Pat68
     delta   = 0.8
-    epsilon = 0.996
-    p       = 50
-    c       = 15.2    
+    epsilon = 0.990
+    p       = 18
+    c       = 16.2    
     '''
     '''
     #Pat69
@@ -256,7 +256,7 @@ plt.suptitle('PAT1')
 plt.plot(tZika, PAT1, 'ro')
 
 #Para pacientes com HCV
-#plt.plot(t, PAT8, 'ro')
+#plt.plot(t, PAT68, 'ro')
 
 #Salvar imagem como arquivo
 #plt.savefig('pat1.png',format= 'png')
