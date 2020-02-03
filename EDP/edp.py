@@ -152,11 +152,15 @@ for t in range(1, tempoNpts - 1):
 
 #fazer os plots dos graficos
 
+plt.plot(tempoPt, V, 'g')
 
+plt.plot(tempoPt, T, 'r')
 
+plt.plot(tempoPt, I[:,0], 'y')
 
+plt.plot(tempoPt, Rp[:,0], 'b')
 
-
+plt.plot(tempoPt, Rn[:,0])
 
 
 
