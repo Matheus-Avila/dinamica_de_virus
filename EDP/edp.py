@@ -106,6 +106,7 @@ def calcIntegral(I,Rp,Rt):
     return soma/float(ageNpts)
 #duvida: a calcIntegral2 so eh usada para calcular N, mas estava comentado no HCV_model.cpp
     #tiro essa funcao ou deixo??
+# Barbara: como esta calculando o N?
 def calcIntegral2(v1, v2):
     soma = 0.0
     for a in range(0, ageNpts):
@@ -115,6 +116,8 @@ def calcIntegral2(v1, v2):
 
 #Solve
 #duvida: Eh para comecar em t = 1 ou t = 0
+# precisamos de um valor inicial mas depende de como vai discretizar e resolver
+# se ja inicializou com o valor de t = 0 pode comecar o laco de t = 1
 for t in range(1, tempoNpts - 1):
     
     T[t] = (s - d*T[t-1] - betta*V[t-1]*T[t-1])*deltaT + T[t-1]
@@ -128,8 +131,12 @@ for t in range(1, tempoNpts - 1):
     Rn[t][0] = 0
     Rt[t][0] = 1
     I[t][0]  = betta*V[t]*T[t] #duvida: O lado da direita eh V[t] ou V[t-1]?
+    # Barbara: acredito que nesse caso V[t] ja foi inicializado na linha 122 entao eh V[t] mesmo 
     #duvida: por que a < AGE-1?? a ultima posicao, Rp[AGE-1], nao eh utilizada nunca?
     #equivalente no HCV.cpp: linha 259
+    # Barbara: porque estamos usando diferencas finitas regressivas que 
+    # para calcular precisa do valor do AGE anterior 
+    # pensa que a ultima posicao eh utilizada no proximo passo de TEMPO
     for a in range(1, ageNpts - 1):
         #duvida: rho fica variavel?
         if(float(a*deltaA) < tau):
@@ -137,6 +144,7 @@ for t in range(1, tempoNpts - 1):
         else:
             rho1 = rho*(1 - np.exp(-k*(float(a*deltaA) - tau)))
         #duvida: utilizando a equacao com delta fixo //equivalente: linha 280
+        # Barbara: nao entendi qual a duvida mas eh pra deixar o delta fixo mesmo
         I[t][a] = (-delta*I[t-1][a] - (I[t-1][a] - I[t-1][a-1])/deltaA)*deltaT + I[t-1][a]
         
         Rn[t][a] = ((1 - epsilon_r)*r*Rp[t-1][a]*(1 - (Rn[t-1][a]/Rmax)) - kappa_c*mu_c*Rn[t-1][a]
