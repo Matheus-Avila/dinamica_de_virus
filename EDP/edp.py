@@ -12,7 +12,7 @@ agePt = np.linspace(0, ageFim, ageNpts)
 ageCont = 0
 
 
-tempoFim = 9
+tempoFim = 2
 deltaT   = 0.01 #passo no tempo
 tempoNpts = int(tempoFim/deltaT) + 1 
 tempoPt = np.linspace(0, tempoFim, tempoNpts)
@@ -26,18 +26,18 @@ betta = 5*10**-8
 c     = 22.30
 delta = 0.62
 rho   = 8.180
-alpha = 30.0
+alpha = 16.0 #30
 r     = 1.61
 
 
-k     = 0.80 # coeficiente da funcao exponencial de atraso na exportacao de RNA positivo
+k     = 0.70 # 0.80 # coeficiente da funcao exponencial de atraso na exportacao de RNA positivo
 tau   = 0.50 # tempo de atraso para a exportacao de RNA positivo
 n     = 1.00 # atraso de delta
 Rmax  = 50.0 # numero maximo de RNA negativo / complexo de replicacao (Rn)
 sigma = 1.30 # taxa de formacao de complexos de replicacao
-mu_t  = 0.89 # decaimento natural de Rt
-theta = 1.20 # taxa de disponibilidade para traducao
-mu_c  = 2.39 # decaimento natural de Rc e Rn
+mu_t  = 0.80 # decaimento natural de Rt
+theta = 0.90 # taxa de disponibilidade para traducao
+mu_c  = 0.89 # decaimento natural de Rc e Rn
 
 
 epsilon_s     = 0.998 # efetividade da terapia em diminuir ou bloquear a exportacao de RNA positivo
@@ -115,13 +115,11 @@ def calcIntegral2(v1, v2):
 
 
 #Solve
-#duvida: Eh para comecar em t = 1 ou t = 0
-# precisamos de um valor inicial mas depende de como vai discretizar e resolver
-# se ja inicializou com o valor de t = 0 pode comecar o laco de t = 1
-for t in range(1, tempoNpts - 1):
-    
+
+for t in range(1, tempoNpts):
+   
     T[t] = (s - d*T[t-1] - betta*V[t-1]*T[t-1])*deltaT + T[t-1]
-    # duvida: Na integral os parametros sao do tempo anterior(I[t-1]...) ou I[t] ??
+    
     V[t] =  deltaT*((1 - epsilon_s)*rho*calcIntegral(I[t-1],Rp[t-1],Rt[t-1]) 
     - c*V[t-1]) + V[t-1]
     
@@ -130,21 +128,15 @@ for t in range(1, tempoNpts - 1):
     Rp[t][0] = 0
     Rn[t][0] = 0
     Rt[t][0] = 1
-    I[t][0]  = betta*V[t]*T[t] #duvida: O lado da direita eh V[t] ou V[t-1]?
-    # Barbara: acredito que nesse caso V[t] ja foi inicializado na linha 122 entao eh V[t] mesmo 
-    #duvida: por que a < AGE-1?? a ultima posicao, Rp[AGE-1], nao eh utilizada nunca?
-    #equivalente no HCV.cpp: linha 259
-    # Barbara: porque estamos usando diferencas finitas regressivas que 
-    # para calcular precisa do valor do AGE anterior 
-    # pensa que a ultima posicao eh utilizada no proximo passo de TEMPO
-    for a in range(1, ageNpts - 1):
-        #duvida: rho fica variavel?
+    I[t][0]  = betta*V[t]*T[t] 
+    
+    for a in range(1, ageNpts):
+        
         if(float(a*deltaA) < tau):
             rho1 = 0
         else:
             rho1 = rho*(1 - np.exp(-k*(float(a*deltaA) - tau)))
-        #duvida: utilizando a equacao com delta fixo //equivalente: linha 280
-        # Barbara: nao entendi qual a duvida mas eh pra deixar o delta fixo mesmo
+            
         I[t][a] = (-delta*I[t-1][a] - (I[t-1][a] - I[t-1][a-1])/deltaA)*deltaT + I[t-1][a]
         
         Rn[t][a] = ((1 - epsilon_r)*r*Rp[t-1][a]*(1 - (Rn[t-1][a]/Rmax)) - kappa_c*mu_c*Rn[t-1][a]
@@ -158,27 +150,24 @@ for t in range(1, tempoNpts - 1):
                     - (Rt[t-1][a] - Rt[t-1][a-1])/(deltaA))*deltaT + Rt[t-1][a]
         
 
-#fazer os plots dos graficos
+plt.plot(agePt, Rp[0,:], 'g')
 
-plt.plot(tempoPt, V, 'g')
+plt.plot(agePt, Rp[50, :], 'r')
 
-plt.plot(tempoPt, T, 'r')
+plt.plot(agePt, Rp[100, :], 'b')
 
-plt.plot(tempoPt, I[:,0], 'y')
+plt.plot(agePt, Rp[150, :], 'y')
 
-plt.plot(tempoPt, Rp[:,0], 'b')
+plt.plot(agePt, Rp[200, :])
 
-plt.plot(tempoPt, Rn[:,0])
-
-
+plt.legend(["0 Horas", "12 Horas", "24 Horas", "36 Horas", "48 Horas"])    
 
 
-
-
-
-
-
-
-    
-    
-    
+'''
+#Plot do gráfico de V
+PAT83 = [5.45, 5.38, 4.73, 4.00, 3.39, 2.89, 2.68, 2.72, 2.97, 1.93];
+t = [0, 0.083, 0.167, 0.25, 0.333, 0.5, 0.667, 1, 1.5, 2 ]
+logV = np.log10(V)
+plt.plot(t, PAT83, 'ro')
+plt.plot(tempoPt, logV, 'g')
+'''
