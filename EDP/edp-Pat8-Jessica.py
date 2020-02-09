@@ -23,25 +23,26 @@ tempoCont = 0
 s     = 1.3*10**5
 d     = 0.01
 betta = 5*10**-8
-c     = 22.30
-delta = 0.62
+c     = 26.30
+delta = 0.58
 rho   = 8.180
-alpha = 30 # 16.0
-r     = 1.61
+alpha = 20
+r     = 1.49
 
 
-k     = 0.80 # 0.70 # coeficiente da funcao exponencial de atraso na exportacao de RNA positivo
+k     = 0.80 # coeficiente da funcao exponencial de atraso na exportacao de RNA positivo
 tau   = 0.50 # tempo de atraso para a exportacao de RNA positivo
+n     = 1.00 # atraso de delta
 Rmax  = 50.0 # numero maximo de RNA negativo / complexo de replicacao (Rn)
 sigma = 1.30 # taxa de formacao de complexos de replicacao
-mu_t  = 0.80 # decaimento natural de Rt
-theta = 1.20 # taxa de disponibilidade para traducao
-mu_c  = 0.89 # decaimento natural de Rc e Rn
+mu_t  = 0.89 # decaimento natural de Rt
+theta = 0.90 # taxa de disponibilidade para traducao
+mu_c  = 2.55 # decaimento natural de Rc e Rn
 
 
 epsilon_s     = 0.998 # efetividade da terapia em diminuir ou bloquear a exportacao de RNA positivo
-epsilon_alpha = 0.924 # efetividade da terapia em diminuir ou bloquear a replicacao de RNA positivo
-epsilon_r     = 0.290 # efetividade da terapia em diminuir ou bloquear a replicacao de RNA negativo
+epsilon_alpha = 0.928 # efetividade da terapia em diminuir ou bloquear a replicacao de RNA positivo
+epsilon_r     = 0.47 # efetividade da terapia em diminuir ou bloquear a replicacao de RNA negativo
 kappa_t       = 1.000 # fator para aumentar a degradacao de RNA positivo disponivel para traducao
 kappa_c       = 1.000 # fator para aumentar a degradacao de RNA positivo e negativo no complexo de replicacao
 
@@ -61,20 +62,7 @@ T0 = 1.3*10**5
 
 
 #PAT8:
-# V0 = 5.64*pow(10,5)
-
-# PAT42:
-# V0 = 5.65*10**5
-
-# PAT68:
-# V0 = 7.5*pow(10,6)
-
-# PAT69:
-# V0 = 6.14*10**6
-
-# PAT83:
-V0 = 5.45*pow(10,5);
-
+V0 = 5.64*pow(10,5)
 
 I0_t0 = betta*T0*V0
 Rt0_t0 = 1
@@ -165,7 +153,7 @@ for t in range(1, tempoNpts):
         Rt[t][a] = (theta*Rp[t-1][a] - sigma*Rt[t-1][a] - (1 - epsilon_s)*rho1*Rt[t-1][a] - kappa_t*mu_t*Rt[t-1][a]
                     - (Rt[t-1][a] - Rt[t-1][a-1])/(deltaA))*deltaT + Rt[t-1][a]
         
-
+"""
 plt.plot(agePt, Rp[0,:], 'g')
 
 plt.plot(agePt, Rp[50, :], 'r')
@@ -178,25 +166,16 @@ plt.plot(agePt, Rp[200, :])
 
 plt.legend(["0 Horas", "12 Horas", "24 Horas", "36 Horas", "48 Horas"])    
 
-
 """
+
 #Plot do gráfico de VxT
 
 t = [0, 0.083, 0.167, 0.25, 0.333, 0.5, 0.667, 1, 1.5, 2 ]
 
 PAT8 = [5.64, 5.31, 4.23, 3.36, 3.14, 2.86, 2.75, 2.50, 2.32, 1.56]
 
-PAT42 = [5.65, 5.00, 3.98, 3.84, 2.94, 2.82, 2.87, 2.53, 2.31, 2.61];
-
-PAT68 =  [7.15, 7.02, 6.19, 5.50, 4.96, 4.29, 4.11, 3.75, 3.68, 3.35];
-
-PAT69 = [6.14, 5.87, 4.73, 4.17, 3.55, 3.14, 2.87, 2.60, 2.55, 2.58];
-
-PAT83 = [5.45, 5.38, 4.73, 4.00, 3.39, 2.89, 2.68, 2.72, 2.97, 1.93]
-
-
+plt.title("PAT-8")
 plt.xlim(0, tempoFim)
 logV = np.log10(V)
-plt.plot(t, PAT83, 'ro')
+plt.plot(t, PAT8, 'ro')
 plt.plot(tempoPt, logV, 'g')
-"""
