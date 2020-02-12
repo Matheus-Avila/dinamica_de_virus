@@ -26,17 +26,17 @@ betta = 5*10**-8
 c     = 22.30
 delta = 0.62
 rho   = 8.180
-alpha = 30 # 16.0
+alpha = 30
 r     = 1.61
 
 
-k     = 0.80 # 0.70 # coeficiente da funcao exponencial de atraso na exportacao de RNA positivo
+k     = 0.80 # coeficiente da funcao exponencial de atraso na exportacao de RNA positivo
 tau   = 0.50 # tempo de atraso para a exportacao de RNA positivo
 Rmax  = 50.0 # numero maximo de RNA negativo / complexo de replicacao (Rn)
 sigma = 1.30 # taxa de formacao de complexos de replicacao
-mu_t  = 0.80 # decaimento natural de Rt
+mu_t  = 0.89 # 0.8 no artigo # decaimento natural de Rt
 theta = 1.20 # taxa de disponibilidade para traducao
-mu_c  = 0.89 # decaimento natural de Rc e Rn
+mu_c  = 2.39 # 0.89 no artigo # decaimento natural de Rc e Rn
 
 
 epsilon_s     = 0.998 # efetividade da terapia em diminuir ou bloquear a exportacao de RNA positivo
@@ -176,21 +176,14 @@ plt.plot(agePt, Rp[150, :], 'y')
 
 plt.plot(agePt, Rp[200, :])
 
-plt.legend(["0 Horas", "12 Horas", "24 Horas", "36 Horas", "48 Horas"])    
-
+plt.legend(["0 Horas", "12 Horas", "24 Horas", "36 Horas", "48 Horas"], loc=5)   
+plt.title("pat83-RpxAge-param-artigo")
 
 """
 #Plot do gráfico de VxT
 
 t = [0, 0.083, 0.167, 0.25, 0.333, 0.5, 0.667, 1, 1.5, 2 ]
 
-PAT8 = [5.64, 5.31, 4.23, 3.36, 3.14, 2.86, 2.75, 2.50, 2.32, 1.56]
-
-PAT42 = [5.65, 5.00, 3.98, 3.84, 2.94, 2.82, 2.87, 2.53, 2.31, 2.61];
-
-PAT68 =  [7.15, 7.02, 6.19, 5.50, 4.96, 4.29, 4.11, 3.75, 3.68, 3.35];
-
-PAT69 = [6.14, 5.87, 4.73, 4.17, 3.55, 3.14, 2.87, 2.60, 2.55, 2.58];
 
 PAT83 = [5.45, 5.38, 4.73, 4.00, 3.39, 2.89, 2.68, 2.72, 2.97, 1.93]
 
@@ -199,4 +192,6 @@ plt.xlim(0, tempoFim)
 logV = np.log10(V)
 plt.plot(t, PAT83, 'ro')
 plt.plot(tempoPt, logV, 'g')
+plt.title("pat83-VxT-param-artigo")
 """
+#plt.savefig('pat83-RpxAge-param-artigo.png',format= 'png')

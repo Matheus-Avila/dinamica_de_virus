@@ -23,10 +23,10 @@ tempoCont = 0
 s     = 1.3*10**5
 d     = 0.01
 betta = 5*10**-8
-c     = 26.30
+c     = 22.30
 delta = 0.58
 rho   = 8.180
-alpha = 20
+alpha = 30
 r     = 1.49
 
 
@@ -153,20 +153,7 @@ for t in range(1, tempoNpts):
         Rt[t][a] = (theta*Rp[t-1][a] - sigma*Rt[t-1][a] - (1 - epsilon_s)*rho1*Rt[t-1][a] - kappa_t*mu_t*Rt[t-1][a]
                     - (Rt[t-1][a] - Rt[t-1][a-1])/(deltaA))*deltaT + Rt[t-1][a]
         
-"""
-plt.plot(agePt, Rp[0,:], 'g')
 
-plt.plot(agePt, Rp[50, :], 'r')
-
-plt.plot(agePt, Rp[100, :], 'b')
-
-plt.plot(agePt, Rp[150, :], 'y')
-
-plt.plot(agePt, Rp[200, :])
-
-plt.legend(["0 Horas", "12 Horas", "24 Horas", "36 Horas", "48 Horas"])    
-
-"""
 
 #Plot do gráfico de VxT
 
@@ -179,3 +166,4 @@ plt.xlim(0, tempoFim)
 logV = np.log10(V)
 plt.plot(t, PAT8, 'ro')
 plt.plot(tempoPt, logV, 'g')
+#plt.savefig('pat8.png',format= 'png')
