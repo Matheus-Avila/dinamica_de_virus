@@ -22,7 +22,7 @@ tempoCont = 0
 #parametros
 s     = 1.3*10**5
 d     = 0.01
-betta = 5*10**-8
+beta = 5*10**-8
 c     = 22.30
 delta = 0.62
 rho   = 8.180
@@ -76,7 +76,8 @@ T0 = 1.3*10**5
 V0 = 5.45*pow(10,5);
 
 
-I0_t0 = betta*T0*V0
+I0_t0 = beta*T0*V0
+
 Rt0_t0 = 1
 Rp0_t0 = 0
 Rn0_t0 = 0
@@ -94,7 +95,7 @@ rho1 = 0.00
 
 # Condicao inicial para as EDPs
 for ageCont in range(1, ageNpts):
-    I[0][ageCont] = (betta*T[0]*V[0]*np.exp(-deltaA*ageCont))*deltaA + I[0][ageCont-1]
+    I[0][ageCont] = (beta*T[0]*V[0]*np.exp(-deltaA*ageCont))*deltaA + I[0][ageCont-1]
     
     if ageCont*deltaA < tau:
         rho1 = 0
@@ -134,7 +135,7 @@ def calcIntegral2(v1, v2):
 
 for t in range(1, tempoNpts):
    
-    T[t] = (s - d*T[t-1] - betta*V[t-1]*T[t-1])*deltaT + T[t-1]
+    T[t] = (s - d*T[t-1] - beta*V[t-1]*T[t-1])*deltaT + T[t-1]
     
     V[t] =  deltaT*((1 - epsilon_s)*rho*calcIntegral(I[t-1],Rp[t-1],Rt[t-1]) 
     - c*V[t-1]) + V[t-1]
@@ -144,7 +145,7 @@ for t in range(1, tempoNpts):
     Rp[t][0] = 0
     Rn[t][0] = 0
     Rt[t][0] = 1
-    I[t][0]  = betta*V[t]*T[t] 
+    I[t][0]  = beta*V[t]*T[t] 
     
     for a in range(1, ageNpts):
         
@@ -165,7 +166,7 @@ for t in range(1, tempoNpts):
         Rt[t][a] = (theta*Rp[t-1][a] - sigma*Rt[t-1][a] - (1 - epsilon_s)*rho1*Rt[t-1][a] - kappa_t*mu_t*Rt[t-1][a]
                     - (Rt[t-1][a] - Rt[t-1][a-1])/(deltaA))*deltaT + Rt[t-1][a]
         
-
+"""
 plt.plot(agePt, Rp[0,:], 'g')
 
 plt.plot(agePt, Rp[50, :], 'r')
@@ -193,5 +194,7 @@ logV = np.log10(V)
 plt.plot(t, PAT83, 'ro')
 plt.plot(tempoPt, logV, 'g')
 plt.title("pat83-VxT-param-artigo")
-"""
+
+
+
 #plt.savefig('pat83-RpxAge-param-artigo.png',format= 'png')
