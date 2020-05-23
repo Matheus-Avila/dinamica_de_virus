@@ -56,13 +56,13 @@ def dinamicaIntracelular(x, y):
     beta    = 5*10**-8
     d       = 0.01
     
-    
+    '''
     #Pat1
     delta   = 0.0011
     epsilon = 0.99
     p       = 0.06
     c       = 1.5
-    
+    '''
     '''
     #Pat2
     delta   = 0.005
@@ -112,13 +112,13 @@ def dinamicaIntracelular(x, y):
     p       = 5
     c       = 20.3    
     '''
-    '''
+    
     #Pat83
     delta   = 0.6
     epsilon = 0.998
     p       = 6
     c       = 16.0    
-    '''
+    
     
     ## inicializa com zeros
     dy = np.zeros(3)
@@ -146,7 +146,7 @@ I0 = 8.7186*10**5
 #------------------Zika-----------------
 
 #PAT1:
-V0   = 1.8*10**3
+#V0   = 1.8*10**3
 
 #PAT2:
 #V0   = 3.6*10**3
@@ -172,7 +172,7 @@ V0   = 1.8*10**3
 #V0  = 1.9139*10**6
 
 #PAT83:
-#V0  = 4.9139*10**5
+V0  = 4.9139*10**5
 
 
 yinit = np.array([T0,I0,V0], dtype='f')
@@ -180,10 +180,10 @@ yinit = np.array([T0,I0,V0], dtype='f')
 # Chama o método de runge-kutta definido com a função e as condições iniciais
 
 #Para pacientes com Zika
-[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, xZika, h)
+#[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, xZika, h)
 
 #Para pacientes com HCV
-#[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, x, h)
+[ts, ys] = RK4thOrder('dinamicaIntracelular', yinit, x, h)
 
 # Separa cada variável em um vetor
 
@@ -199,10 +199,10 @@ plt.figure()
 plt.plot(ts, ys3, 'g')
 
 #Para pacientes com Zika
-plt.xlim(xZika[0], xZika[1])
+#plt.xlim(xZika[0], xZika[1])
 
 #Para pacientes com HCV
-#plt.xlim(x[0], x[1])
+plt.xlim(x[0], x[1])
 
 plt.xlabel("Dias", fontsize=17)
 plt.ylabel("log VL (RNA cp/mL)", fontsize=17)
@@ -216,19 +216,19 @@ PAT8 = [5.64, 5.31, 4.23, 3.36, 3.14, 2.86, 2.75, 2.50, 2.32, 1.56]
 #PAT8_exp = [5.64 5.31 4.23 3.36 3.14 2.86 2.75 2.50 2.32 1.56 1.53 1.40]
 
 # --- for patient 42
-PAT42 = [5.65, 5.00, 3.98, 3.84, 2.94, 2.82, 2.87, 2.53, 2.31, 2.61];
+PAT42 = [5.65, 5.00, 3.98, 3.84, 2.94, 2.82, 2.87, 2.53, 2.31, 2.61]
 #PAT42_exp = [5.65 5.00 3.98 3.84 2.94 2.82 2.87 2.53 2.31 2.61 2.29 2.18];
 
 # --- for patient 68
-PAT68 =  [7.15, 7.02, 6.19, 5.50, 4.96, 4.29, 4.11, 3.75, 3.68, 3.35];
+PAT68 =  [7.15, 7.02, 6.19, 5.50, 4.96, 4.29, 4.11, 3.75, 3.68, 3.35]
 #PAT68_exp =  [7.15 7.02 6.19 5.50 4.96 4.29 4.11 3.75 3.68 3.35 3.07 2.26];
 
 # --- for patient 69
-PAT69 = [6.14, 5.87, 4.73, 4.17, 3.55, 3.14, 2.87, 2.60, 2.55, 2.58];
+PAT69 = [6.14, 5.87, 4.73, 4.17, 3.55, 3.14, 2.87, 2.60, 2.55, 2.58]
 #PAT69_exp = [6.14 5.87 4.73 4.17 3.55 3.14 2.87 2.60 2.55 2.58 2.49 3.57];
 
 # --- for patient 83
-PAT83 = [5.45, 5.38, 4.73, 4.00, 3.39, 2.89, 2.68, 2.72, 2.97, 1.93];
+PAT83 = [5.45, 5.38, 4.73, 4.00, 3.39, 2.89, 2.68, 2.72, 2.97, 1.93]
 #PAT83_exp = [5.45 5.38 4.73 4.00 3.39 2.89 2.68 2.72 2.97 1.93 2.01 1.54];
 
 # Zika Virus Pat
@@ -250,13 +250,13 @@ PAT3 = [3.555587, 3.316164, 2.595167, 2.543369]
 #Pat4
 PAT4 = [4.175440, 2.992317, 2.744784, 2.543393]
 
-plt.suptitle('PAT1')
+plt.suptitle('PAT83')
 
 #Para pacientes com Zika
-plt.plot(tZika, PAT1, 'ro')
+#plt.plot(tZika, PAT1, 'ro')
 
 #Para pacientes com HCV
-#plt.plot(t, PAT68, 'ro')
+plt.plot(t, PAT83, 'ro')
 
 #Salvar imagem como arquivo
 #plt.savefig('pat1.png',format= 'png')

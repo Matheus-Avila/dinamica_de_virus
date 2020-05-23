@@ -73,7 +73,7 @@ T0 = 1.3*10**5
 # V0 = 6.14*10**6
 
 # PAT83:
-V0 = 5.45*pow(10,5);
+V0 = 5.45*pow(10,5)
 
 
 I0_t0 = beta*T0*V0
@@ -121,14 +121,6 @@ def calcIntegral(I,Rp,Rt):
     for a in range(0, ageNpts):
         soma = soma + I[a]*Rp[a]*Rt[a]
     return soma/float(ageNpts)
-#duvida: a calcIntegral2 so eh usada para calcular N, mas estava comentado no HCV_model.cpp
-    #tiro essa funcao ou deixo??
-# Barbara: como esta calculando o N?
-def calcIntegral2(v1, v2):
-    soma = 0.0
-    for a in range(0, ageNpts):
-        soma = soma + v1[a]*v2[a]*np.exp(-delta*a)
-    return soma/float(ageNpts)    
 
 
 #Solve
